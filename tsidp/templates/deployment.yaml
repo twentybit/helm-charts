@@ -59,7 +59,7 @@ spec:
             - name: tsidp-data
               mountPath: /data
       volumes:
-        {{- if .Values.persistence.enabled }}
+        {{- if .Values.persistentVolumeClaim.enabled }}
         - name: tsidp-data
           persistentVolumeClaim:
             claimName: {{ include "tsidp.fullname" . }}
