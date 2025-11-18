@@ -35,10 +35,10 @@ podAnnotations: {}
 podLabels: {}
 
 podSecurityContext:
-  fsGroup: 2000
+  fsGroup: 1001
 
 securityContext:
-  runAsUser: 1000
+  runAsUser: 1001
   runAsNonRoot: true
   readOnlyRootFilesystem: false
 
@@ -58,12 +58,23 @@ affinity: {}
 
 persistentVolumeClaim:
   enabled: false
-  annotations: {}
-  accessModes:
-    - ReadWriteOnce
-  storageClass: ""
-  size: "500Mi"
+  # annotations: {}
+  # accessModes:
+  #   - ReadWriteOnce
+  # storageClass: ""
+  # size: "500Mi"
 
+# Set logging level: debug, info, warn, error
 logLevel: info
 
-tsauthkey: ""
+# Optional: Tailscale auth key for automatic node registration
+auth_key: ""
+
+# Hostname on tailnet. Will become <hostname>.your-tailnet.ts.net
+hostname: "idp"
+
+# Port to listen on
+port: "443"
+
+# Enable OAuth token exchange using RFC 8693
+enable_sts: true

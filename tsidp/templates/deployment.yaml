@@ -6,6 +6,8 @@ metadata:
     {{- include "tsidp.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       {{- include "tsidp.selectorLabels" . | nindent 6 }}
@@ -41,15 +43,22 @@ spec:
           env:
             - name: TAILSCALE_USE_WIP_CODE
               value: "1"
-            - name: TSIDP_ENABLE_STS
-              value: "1"
             - name: TS_STATE_DIR
               value: "/data"
             - name: TS_HOSTNAME
-              value: "tsidp"
-            {{- if .Values.tsauthkey }}
+              value: "{{ .Values.hostname }}"
+            - name: TSIDP_PORT
+              value: "{{ .Values.port }}"
+            {{- if .Values.enable_sts }}
+            - name: TSIDP_ENABLE_STS
+              value: "1"
+            {{- end }}
+            {{- if .Values.auth_key }}
             - name: TS_AUTHKEY
-              value: "{{ .Values.tsauthkey }}"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "tsidp.fullname" . }}-authkey
+                  key: auth_key
             {{- end }}
           {{- with .Values.resources }}
           resources:
