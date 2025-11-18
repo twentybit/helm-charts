@@ -49,16 +49,8 @@ spec:
             {{- end }}
             - name: TS_STATE_DIR
               value: "/data"
-            - name: TSIDP_PORT
-              value: "80"
-            - name: TSIDP_LOG
-              value: "{{ .Values.logLevel }}"
             - name: TS_HOSTNAME
               value: "tsidp"
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
