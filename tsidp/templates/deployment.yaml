@@ -43,14 +43,14 @@ spec:
               value: "1"
             - name: TSIDP_ENABLE_STS
               value: "1"
-            {{- if .Values.tsauthkey }}
-            - name: TS_AUTHKEY
-              value: "{{ .Values.tsauthkey }}"
-            {{- end }}
             - name: TS_STATE_DIR
               value: "/data"
             - name: TS_HOSTNAME
               value: "tsidp"
+            {{- if .Values.tsauthkey }}
+            - name: TS_AUTHKEY
+              value: "{{ .Values.tsauthkey }}"
+            {{- end }}
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
@@ -62,7 +62,7 @@ spec:
         {{- if .Values.persistence.enabled }}
         - name: tsidp-data
           persistentVolumeClaim:
-            claimName: tsidp-pvc
+            claimName: {{ include "tsidp.fullname" . }}
         {{- else }}
         - name: tsidp-data
           emptyDir: {}

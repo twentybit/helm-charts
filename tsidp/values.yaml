@@ -63,11 +63,13 @@ tolerations: []
 
 affinity: {}
 
-persistence:
+persistentVolumeClaim:
   enabled: false
-  accessMode: ReadWriteOnce
-  size: 1Gi
+  annotations: {}
+  accessModes:
+    - ReadWriteOnce
   storageClass: ""
+  size: "500Mi"
 
 logLevel: info
 
