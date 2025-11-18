@@ -54,7 +54,7 @@ spec:
             - name: TSIDP_LOG
               value: "{{ .Values.logLevel }}"
             - name: TS_HOSTNAME
-              value: "idp"
+              value: "tsidp"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
