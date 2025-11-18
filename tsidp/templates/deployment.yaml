@@ -43,8 +43,10 @@ spec:
               value: "1"
             - name: TSIDP_ENABLE_STS
               value: "1"
+            {{- if .Values.tsauthkey }}
             - name: TS_AUTHKEY
               value: "{{ .Values.tsauthkey }}"
+            {{- end }}
             - name: TS_STATE_DIR
               value: "/data"
             - name: TSIDP_PORT
