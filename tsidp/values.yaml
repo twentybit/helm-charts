@@ -92,3 +92,7 @@ persistence:
   accessMode: ReadWriteOnce
   size: 1Gi
   storageClass: ""
+
+logLevel: info
+
+tsauthkey: ""
